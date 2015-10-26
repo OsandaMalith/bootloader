@@ -8,7 +8,8 @@
 
 	jmp short _start	; Jump past disk description section
 	nop	
-
+	
+; Disk description table, to make it a valid floppy
 OEMLabel		db "OsandaOS"	; Disk label
 BytesPerSector		dw 512		; Bytes per sector
 SectorsPerCluster	db 1		; Sectors per cluster
@@ -33,15 +34,12 @@ _start:
 	mov ax, 07C0h		; move 0x7c00 into ax
 	mov ds, ax			; set data segment to where we're loaded
 
-
 	mov si, string	; Put string position into SI
 	call print_string	; Call our string-printing routine
 
 	jmp $			; infinite loop!
 
-
 	string db "Welcome to @OsandaMalith's First OS :)", 0
-
 
 print_string:		
 	mov ah, 0Eh		; int 10h 'print char' function
@@ -55,7 +53,6 @@ print_string:
 
 .done:
 	ret
-
 
 	times 510-($-$$) db 0	; Pad remainder of boot sector with 0s
 	dw 0xAA55				; The standard PC boot signature
