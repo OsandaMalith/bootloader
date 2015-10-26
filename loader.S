@@ -32,7 +32,7 @@ main:
         .long   0x12345678      #VolumeID
         .ascii  "My First OS"   #VolumeLabel
         .ascii  "FAT12   "      #FileSystem
-#        .fill   18, 1, 0
+
 _start:
         movw $0, %ax
         movw %ax, %ss
